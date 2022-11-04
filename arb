@@ -1,0 +1,37 @@
+library(readr)
+library(car)
+library(dplyr)
+#set wd and read data
+setwd("~/Interviewing/2022-2023/HOU/Baseball Ops Apprentice")
+df <- read.csv("Arbitration_1TE_POS_Market.csv", fileEncoding = 'UTF-8-BOM')
+names(df) <- gsub(x = names(df),
+                  pattern = "\\.",
+                  replacement = "_")
+
+#explore data
+dim(df)
+names(df)
+summary(df)
+str(df)
+
+#plots
+attach(df)
+plot(career_pa, salary_1te)
+plot(career_pa, log(salary_1te))
+hist(salary_1te)
+hist(log(salary_1te))
+detach(df)
+
+#model
+model_players <- lm(log(salary_1te) ~ log(salary_py) + career_pa + career_ops + career_war3 + car_mvpvotes, data=df)
+summary(model_players)
+
+AIC(model_players)
+vif(model_players)
+plot(model_players)
+mean(model_players$res)
+
+
+#model selection
+library(leaps)
+leaps(cbind(salary_py, career_pa, career_ops, career_war3, car_mvpvotes),log(salary_1te),nbest=1,method="adjr2")
