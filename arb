@@ -1,8 +1,10 @@
 library(readr)
 library(car)
 library(dplyr)
+
 #set wd and read data
 setwd("~/Interviewing/2022-2023/HOU/Baseball Ops Apprentice")
+
 df <- read.csv("Arbitration_1TE_POS_Market.csv", fileEncoding = 'UTF-8-BOM')
 names(df) <- gsub(x = names(df),
                   pattern = "\\.",
