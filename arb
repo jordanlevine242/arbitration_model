@@ -36,4 +36,4 @@ mean(model_players$res)
 
 #model selection
 library(leaps)
-leaps(cbind(salary_py, career_pa, career_ops, career_war3, car_mvpvotes),log(salary_1te),nbest=1,method="adjr2")
+leaps(cbind(salary_py, career_pa, career_ops, career_war3, car_mvpvotes), log(salary_1te), nbest=1, method="adjr2")
